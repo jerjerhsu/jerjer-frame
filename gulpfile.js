@@ -1,29 +1,28 @@
 var gulp         = require( 'gulp' ),                  // Gulp                
     env          = require( 'gulp-env' ),              // 
     watch        = require( 'gulp-watch' ),            // 
-    livereload   = require( "gulp-livereload" ),       // 即時更新
-    connect      = require('gulp-connect'),          // 例外處裡
+    livereload   = require( 'gulp-livereload' ),       // 即時更新
+    connect      = require( 'gulp-connect'),          // 例外處裡
     debug        = require( 'gulp-debug' ),
     // connect      = require( 'gulp-connect-php' ),   // PHP Server
     browserSync  = require( 'browser-sync' ).create(), // 頁面同步更新
     changed      = require( 'gulp-changed' ),          // 監聽哪些檔案更動
     gulpIf       = require( 'gulp-if' ),               // if
-    path         = require('path'),                    // path
-    sass         = require( 'gulp-sass' ),             // Sass               
-    compass      = require( "gulp-compass" ),          // compass         
+    path         = require( 'path' ),                    // path
+    sass         = require( 'gulp-sass' ),             // Sass            
     autoprefixer = require( 'gulp-autoprefixer' ),     // 自動前綴字  
     minifyCSS    = require( 'gulp-minify-css' ),       // css壓縮       
     concat       = require( 'gulp-concat' ),           // 合併檔案  
     // jshint       = require( "gulp-jshint" ),         
     uglify       = require( 'gulp-uglify' ),           // 醜化原始碼          
-    cache        = require( "gulp-cache" ),            // 快取壓縮
+    cache        = require( 'gulp-cache' ),            // 快取壓縮
     plumber      = require( 'gulp-plumber' ),          // 例外處裡
     rename       = require( 'gulp-rename' ),
     merge        = require( 'merge-stream' ),
     sourcemaps   = require( 'gulp-sourcemaps' ),
     gutil        = require( 'gulp-util' ),
     // iconfont     = require( 'gulp-iconfont' ),
-    notify       = require( "gulp-notify" ),
+    notify       = require( 'gulp-notify' ),
     consolidate  = require( 'gulp-consolidate' ),
     spritesmith  = require( 'gulp.spritesmith' ),
     processhtml  = require( 'gulp-processhtml' ),
@@ -68,25 +67,20 @@ var src = '',
                 main: [
                     src  + 'js/base.js',
                     src  + 'js/init.js',
-                    // src  + 'js/api.js',
-                    // src  + 'js/plugin.js',
-                    // src  + 'js/canvas.js',
-                    // src  + 'js/svg.js',
-                    // src  + 'js/data.js',
                     src  + 'js/main.js'
                 ],  
                 libs: [ // 需要合併的套件們清單，順序為依序往下合併
-                    libs + 'gsap/src/minified/TweenMax.min.js',
-                    // libs + 'pixi/pixi.min.js',            //xxxxxxxxx
                     libs + 'vue/dist/vue.min.js', // v2.5.13
                     libs + 'jquery/dist/jquery.min.js', // v2.2.4
                     // libs + 'jquery-ui/jquery-ui.min.js', // v1.12.1
                     libs + 'hammerjs/hammer.min.js',
                     libs + 'imagesloaded/imagesloaded.pkgd.js',
                     libs + 'jQuery-viewport-checker/dist/jquery.viewportchecker.min.js',
+                    libs + 'slick-carousel/slick/slick.min.js',
                     // libs + 'jquery-ui-touch-punch/jquery-ui-touch-punch.min.js',
                     // libs + 'Snap.svg/dist/snap.svg-min.js', // v0.5.1
-                    libs + 'slick-carousel/slick/slick.min.js',
+                    // libs + 'pixi/pixi.min.js',            //xxxxxxxxx
+                    // libs + 'gsap/src/minified/TweenMax.min.js',
                     // libs + 'masonry.pkgd.js',
                     // libs + 'jquery.mCustomScrollbar.js',
                     // libs + 'greensock/TweenMax.min.js',
@@ -101,10 +95,10 @@ var src = '',
             temp: src  + 'html/template/*.html',
         },
         dist: {
+            html: dist,
             css:  dist + 'css/',
             js:   dist + 'js/',
             data: dist + 'data/',
-            html: dist,
             img:  dist + 'img/',
         }
     },

@@ -1,7 +1,7 @@
 /*************************************************
 * client:  客戶
 * project: 專案
-* date:    Wed Mar 20 2019 15:20:00 
+* date:    Wed Mar 20 2019 16:06:43 
 * copyright (c) 2019  | jerjer.
  *************************************************/
 'use strict';
@@ -373,45 +373,6 @@ $('#banner_preview').css({
 $('#banner').css({
   'display': 'block'
 }).addClass('show');
-$('.slides').each(function () {
-  var $this = $(this),
-      $slides = $this.children(' .slides_list'),
-      slidesName = $slides.data('slides'),
-      slidesNav = $slides.data('slidesnav') || false,
-      options = {
-    prevArrow: $this.children('.slides_prev'),
-    nextArrow: $this.children('.slides_next'),
-    dots: true,
-    infinite: false,
-    speed: 450,
-    centerMode: true,
-    centerPadding: '20%',
-    slidesToShow: 1,
-    asNavFor: slidesNav,
-    adaptiveHeight: true,
-    swipe: true
-  };
-  $slides.slick(options);
-
-  if (slidesNav) {
-    var navOptions = {
-      prevArrow: false,
-      nextArrow: false,
-      slidesToShow: 3,
-      // slidesToScroll: 1,
-      asNavFor: '.slides_list[data-slides=' + slidesName + ']',
-      dots: false,
-      infinite: false,
-      // speed: 650,
-      // fade: true,
-      swipe: false,
-      centerMode: true,
-      centerPadding: '0%',
-      focusOnSelect: true
-    };
-    $(slidesNav).slick(navOptions);
-  }
-});
 /* viewportChecker */
 
 var viewpageApp = {
