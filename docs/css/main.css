@@ -1,7 +1,7 @@
 /*************************************************
 * client:  客戶
 * project: 專案
-* date:    Wed Mar 20 2019 16:06:43 
+* date:    Thu Mar 21 2019 15:46:39 
 * copyright (c) 2019  | jerjer.
  *************************************************/
 @charset "UTF-8";
@@ -2248,6 +2248,120 @@ body {
   text-align: center;
   line-height: 1.4;
   display: inline-block;
+}
+
+body {
+  font-family: tahoma;
+  color: #282828;
+  margin: 0px;
+}
+
+.nav-bar {
+  background: -webkit-gradient(linear, right top, left top, from(#84CF6A), to(#16C0B0));
+  background: -webkit-linear-gradient(right, #84CF6A, #16C0B0);
+  background: -moz-linear-gradient(right, #84CF6A, #16C0B0);
+  background: -o-linear-gradient(right, #84CF6A, #16C0B0);
+  background: linear-gradient(-90deg, #84CF6A, #16C0B0);
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.product {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: wrap;
+      -ms-flex-flow: wrap;
+          flex-flow: wrap;
+  padding: 1rem;
+}
+
+img {
+  border: 1px solid #d8d8d8;
+  width: 70%;
+  margin: 40px;
+  -webkit-box-shadow: 0px .5px 1px #d8d8d8;
+     -moz-box-shadow: 0px .5px 1px #d8d8d8;
+          box-shadow: 0px .5px 1px #d8d8d8;
+}
+
+.product-image {
+  width: 80%;
+}
+
+.product-image,
+.product-info {
+  margin-top: 10px;
+  width: 50%;
+}
+
+.color-box {
+  width: 40px;
+  height: 40px;
+  margin-top: 5px;
+}
+
+.cart {
+  margin-right: 25px;
+  float: right;
+  border: 1px solid #d8d8d8;
+  padding: 5px 20px;
+}
+
+button {
+  margin-top: 30px;
+  border: none;
+  background-color: #1E95EA;
+  color: white;
+  height: 40px;
+  width: 100px;
+  font-size: 14px;
+}
+
+.disabledButton {
+  background-color: #d8d8d8;
+}
+
+.review-form {
+  width: 400px;
+  padding: 20px;
+  margin: 40px;
+  border: 1px solid #d8d8d8;
+}
+
+input {
+  width: 100%;
+  height: 25px;
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  height: 60px;
+}
+
+.tab {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.activeTab {
+  color: #16C0B0;
+  text-decoration: underline;
+}
+
+.lineThrough {
+  text-decoration: line-through;
+}
+
+.tab-box {
+  padding: 20px;
+}
+
+.activedColor {
+  border: 5px solid #000;
 }
 
 @media only screen and (min-width: 1201px) {

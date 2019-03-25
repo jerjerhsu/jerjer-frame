@@ -1,7 +1,7 @@
 /*************************************************
 * client:  客戶
 * project: 專案
-* date:    Wed Mar 20 2019 16:06:43 
+* date:    Thu Mar 21 2019 15:46:39 
 * copyright (c) 2019  | jerjer.
  *************************************************/
 'use strict';
@@ -11,7 +11,7 @@ var _$$slick;
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 console.log("%cJERJER%c(\u2032\u309C\u03C9\u3002\u2035)...", 'color: rgba(5,137,62,1); font-size: 32px; vertical-align: baseline;' + 'font-family: "Luxia-Medium", Arial, "Noto Sans TC", "Microsoft JhengHei";' + 'margin: 10px 0px 5px 0; padding: 0px 5px;', 'font-size: 30px; color: rgba(5,137,62,1);');
-console.log('%cryan-project   ❙   2019-01   ❙   Copyright \xA9 2019 ', 'color: rgba(5,137,62,1); font-size: 12px; margin: 5px 0; font-family:Arial; font-weight: 600;');
+console.log('%cjerjer-project   ❙   2019-01   ❙   Copyright \xA9 2019 ', 'color: rgba(5,137,62,1); font-size: 12px; margin: 5px 0; font-family:Arial; font-weight: 600;');
 var PI = Math.PI,
     rad = Math.PI / 180,
     cos = Math.cos,
@@ -440,4 +440,179 @@ $(viewpageApp.el).viewportChecker({
   repeat: true,
   scrollHorizontal: false,
   callbackFunction: function callbackFunction(elem, action) {}
+});
+/* vue */
+
+Vue.config.devtools = true;
+var eventBus = new Vue();
+Vue.component('productdetails', {
+  props: {
+    details: {
+      type: Array,
+      required: true
+    }
+  },
+  template: "\n\t\t<div class=\"productdetails\">\n\t\t\t<ul>\n\t\t\t\t<li v-for=\"detail in details\">{{ detail }}</li>\n\t\t\t</ul>\n\t\t</div>\n\t"
+});
+Vue.component('product', {
+  props: {
+    premium: {
+      type: Boolean,
+      required: true
+    }
+  },
+  template: "\n\t\t<div class=\"product\">\n\t\t\t<div>\n\t\t\t\t<span \n\t\t\t\tv-for=\"(stab,index) in stabs\" \n\t\t\t\t:key=\"index\"\n\t\t\t\tv-on:click=\"selectedTab = stab\"\n\t\t\t\tv-bind:class=\"{ activeTab : selectedTab == stab}\"\n\t\t\t\t>{{ stab }}</span>\n\t\t\t</div>\n\t\t\t<div \n\t\t\t\tclass=\"cart\"\n\t\t\t\tv-show=\"selectedTab === 'shipping'\"\n\t\t\t>\n\t\t\t\t<p>Cart({{ cart.length }})</p>\n\t\t\t</div>\n\t\t\t<div v-show=\"selectedTab === 'details'\">\n\t\t\t<div class=\"product-image\">\n\t\t\t\t\t<img v-bind:src=\"image\">\n\t\t\t\t</div>\n\t\t\t\t<div class=\"product-info\">\n\t\t\t\t\t<div v-if=\"onSaleValue\">on sale {{ onSale }}</div>\n\t\t\t\t\t<h1>{{ title }}</h1>\n\t\t\t\t\t<p v-if=\"inStock\">in stock</p>\n\t\t\t\t\t<p \n\t\t\t\t\t\tv-else\n\t\t\t\t\t\tv-bind:class=\"[!inStock?notInStockClass:'']\"\n\t\t\t\t\t\tv-bind:style=\"[!inStock?{'text-decoration': 'line-through'}:'']\">out of stock</p>\n\t\t\t\t\t\t<p>shipping : {{ shipping }}</p>\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li v-for=\"detail in details\">{{ detail }}</li>\n\t\t\t\t\t</ul>\n\t\t\t\t\t<productdetails :details=\"details\"></productdetails>\n\t\t\t\t\t<div\n\t\t\t\t\t\tv-for=\"(variant,index) in variants\" \n\t\t\t\t\t\tv-bind:data-key=\"variant.variantId\"\n\t\t\t\t\t\tclass=\"color-box\"\n\t\t\t\t\t\t:class=\"{activedColor : selectedVariant === index}\"\n\t\t\t\t\t\tv-bind:style=\"{'background-color': variant.variantColor}\"\n\t\t\t\t\t\t@click=\"updateProduct(index)\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<button \n\t\t\t\t\t\tv-on:click=\"addToCart\" \n\t\t\t\t\t\t:disabled=\"!inStock\"\n\t\t\t\t\t\tclass=\"button\"\n\t\t\t\t\t\t:class=\"{ disabledButton : !inStock }\">Add to Cart</button>\n\t\t\t\t\t<button v-on:click=\"removeFromCart\">remove</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<product-tabs :reviews=\"reviews\"></product-tabs>\n\t\t</div>\n\t",
+  data: function data() {
+    return {
+      brand: "Vue mastery",
+      product: "Socks",
+      selectedVariant: 0,
+      notInStockClass: ['lineThrough-0', 'lineThrough-1'],
+      details: ["80% cotton", "20% polyester", "Gender neutral"],
+      onSaleValue: true,
+      variants: [{
+        variantId: 2234,
+        variantColor: "green",
+        variantImage: "img/vmSocks-green-onWhite.jpg",
+        variantquanty: 10
+      }, {
+        variantId: 2235,
+        variantColor: "blue",
+        variantImage: "img/vmSocks-blue-onWhite.jpg",
+        variantquanty: 5
+      }],
+      reviews: [],
+      stabs: ['details', 'shipping'],
+      selectedTab: 'details'
+    };
+  },
+  methods: {
+    addToCart: function addToCart() {
+      // this.cart += 1
+      this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId);
+    },
+    updateProduct: function updateProduct(index) {
+      this.selectedVariant = index;
+      console.log(index);
+    },
+    removeFromCart: function removeFromCart() {
+      this.$emit('remove-from-cart', this.variants[this.selectedVariant].variantId);
+    },
+    addReview: function addReview(productPreview) {
+      this.reviews.push(productPreview);
+    }
+  },
+  computed: {
+    title: function title() {
+      return this.brand + ' ' + this.product;
+    },
+    image: function image() {
+      return this.variants[this.selectedVariant].variantImage;
+    },
+    inStock: function inStock() {
+      return this.variants[this.selectedVariant].variantquanty > 0;
+    },
+    onSale: function onSale() {
+      return this.brand + this.product;
+    },
+    shipping: function shipping() {
+      if (this.premium) {
+        return "free";
+      }
+
+      return "2.99";
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    eventBus.$on('review-submited', function (productPreview) {
+      _this.reviews.push(productPreview);
+    });
+  }
+});
+Vue.component("product-review", {
+  template: "\n\t\t<form class=\"review-form\" v-on:submit.prevent=\"onSubmit\">\n\t\t\t<p v-if=\"errors.length\">\n\t\t\t\t<b>please correct the folling error(s):</b>\n\t\t\t\t<ul>\n\t\t\t\t\t<li v-for=\"error in errors\">{{ error }}</li>\n\t\t\t\t<ul>\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t\t<label for=\"name\">Name</label>\n\t\t\t\t<input id=\"name\" v-model=\"name\">\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t\t<label for=\"review\">Review:</label>\n\t\t\t\t<textarea id=\"review\" v-model=\"review\"></textarea>\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t<label for=\"rating\">Raiting:</label>\n\t\t\t\t<select id=\"rating\" v-model.number=\"rating\">\n\t\t\t\t\t<option>5</option>\n\t\t\t\t\t<option>4</option>\n\t\t\t\t\t<option>3</option>\n\t\t\t\t\t<option>2</option>\n\t\t\t\t\t<option>1</option>\n\t\t\t\t</select>\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t\t<label for=\"recommend\">Would you recommend this product?</label>\n\t\t\t\t<input type=\"radio\" name=\"recommend\" value=\"yes\" v-model=\"recommend\">\n\t\t\t\t<input type=\"radio\" name=\"recommend\" value=\"no\" v-model=\"recommend\">\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t\t<input type=\"submit\" value=\"Submit\">\n\t\t\t</p>\n\t\t</form>\n\t",
+  data: function data() {
+    return {
+      name: null,
+      review: null,
+      rating: null,
+      recommend: null,
+      errors: []
+    };
+  },
+  methods: {
+    onSubmit: function onSubmit() {
+      this.errors = [];
+
+      if (this.name && this.review && this.rating && this.recommend) {
+        var productPreview = {
+          name: this.name,
+          rating: this.rating,
+          review: this.review,
+          recommend: this.recommend
+        };
+        eventBus.$emit('review-submited', productPreview);
+        this.name = null;
+        this.rating = null;
+        this.review = null;
+        this.recommend = null;
+      } else {
+        if (!this.name) this.errors.push("name is required!");
+        if (!this.review) this.errors.push("review is required!");
+        if (!this.rating) this.errors.push("rating is required!");
+        if (!this.recommend) this.errors.push("recommend is required!");
+      }
+    }
+  }
+});
+Vue.component("product-tabs", {
+  props: {
+    reviews: {
+      type: Array,
+      required: true
+    }
+  },
+  template: "\n\t\t<div>\n\t\t\t<div class=\"tab-box\">\n\t\t\t\t<span \n\t\t\t\t\tclass=\"tab\"\n\t\t\t\t\tv-for=\"(tab,index) in tabs\"\n\t\t\t\t\t:key=\"index\"\n\t\t\t\t\tv-on:click=\"selectedTab = tab\"\n\t\t\t\t\tv-bind:class=\"{ activeTab : selectedTab == tab}\"\n\t\t\t\t>\n\t\t\t\t\t{{ tab }}\n\t\t\t\t</span>\n\t\t\t</div>\n\t\t\t<div v-show=\"selectedTab === 'Reviews'\">\n\t\t\t\t<h2>Reviews</h2>\n\t\t\t\t<p v-if=\"!reviews.length\">there are no reviews yet</p>\n\t\t\t\t<ul>\n\t\t\t\t\t<li v-for=\"review in reviews\">\n\t\t\t\t\t\t<p>name : {{ review.name }}</p>\n\t\t\t\t\t\t<p>rating : {{ review.rating }}</p>\n\t\t\t\t\t\t<p>review : {{ review.review }}</p>\n\t\t\t\t\t\t<p>recommend : {{ review.recommend }}</p>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</div>\n\t\t\t<product-review \n\t\t\t\tv-show=\"selectedTab == 'Make a review'\"\n\t\t\t></product-review>\n\t\t</div>\n\t",
+  data: function data() {
+    return {
+      tabs: ["Reviews", "Make a review"],
+      selectedTab: "Reviews"
+    };
+  }
+});
+Vue.component('detail-shipping', {
+  props: {
+    cart: {
+      type: Array,
+      required: true
+    }
+  },
+  template: "\n\t\t<div>\n\n\n\t\t</div>\n\t",
+  data: function data() {
+    return {};
+  }
+});
+var app = new Vue({
+  el: "#app",
+  data: {
+    premium: true,
+    cart: []
+  },
+  methods: {
+    updateCart: function updateCart(id) {
+      this.cart.push(id);
+    },
+    decressCart: function decressCart(id) {
+      console.log(id, this.cart.length);
+
+      for (var i = 0; i < this.cart.length; i++) {
+        if (this.cart[i] == id) {
+          this.cart.splice(i, 1);
+          break;
+        }
+      }
+    }
+  }
 });

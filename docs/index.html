@@ -175,6 +175,11 @@
 					</a>
 				</div>
 			</div>
+			<div id="app">
+				<product :premium="premium" :cart="cart" @add-to-cart="updateCart" v-on:remove-from-cart="decressCart"></product>
+				<product></product>
+				<product></product>
+			</div>
 			<h1 id="main-title" class="viewpage" data-page="0">
 				用最短的時間學會FB廣告操作技巧，<br/>事業起飛，從學習新技能開始。
 			</h1>

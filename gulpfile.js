@@ -136,6 +136,7 @@ function buildHTML(cb){
         .pipe( processhtml( opts ) )
         .pipe( gulp.dest( path.dist.html ) )
         .pipe( connect.reload() );
+    console.log('HTML compiled');
     if (typeof cb === 'function') {
         cb();
     }
